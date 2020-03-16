@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ArticleCard from "./ArticleCard";
+import { getArticles } from "../api";
 
 class AllArticles extends Component {
   state = {
@@ -27,20 +28,28 @@ class AllArticles extends Component {
     ]
   };
 
+  // fetchArticles = () => {
+  //   getArticles().then(data => {
+  //     console.log(data.body);
+  //   });
+  // };
+
+  // componentDidMount() {
+  //   this.fetchArticles();
+  // }
+
   render() {
     const { articles } = this.state;
     return (
-      <div>
-        <ul className="article-list">
-          {articles.map(article => {
-            return (
-              <li key={article.id}>
-                <ArticleCard article={article} />
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <ul className="article-list">
+        {articles.map(article => {
+          return (
+            <li key={article.id}>
+              <ArticleCard article={article} />
+            </li>
+          );
+        })}
+      </ul>
     );
   }
 }
