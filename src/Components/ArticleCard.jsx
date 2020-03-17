@@ -1,9 +1,12 @@
 import React from "react";
+import { Link } from "@reach/router";
 
 const ArticleCard = ({ article }) => {
   return (
     <div className="article-card">
-      <div id="card-topic">{article.topic}</div>{" "}
+      <Link to={`/${article.topic}`}>
+        <div id="card-topic">{article.topic}</div>{" "}
+      </Link>
       <div id="card-author">{article.author}</div>
       <div id="card-title">{article.title}</div>
       <div id="card-date">

@@ -16,6 +16,12 @@ class ArticlesByTopic extends Component {
     this.fetchArticles();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.topic !== this.props.topic) {
+      this.fetchArticles();
+    }
+  }
+
   render() {
     const { articles } = this.state;
     return (

@@ -1,5 +1,6 @@
 import React from "react";
 import { getTopics } from "../api";
+import { Link } from "@reach/router";
 
 class TopicList extends React.Component {
   state = {
@@ -24,9 +25,11 @@ class TopicList extends React.Component {
         <ul className="topic-list">
           {topics.map(topic => {
             return (
-              <li key={topic.slug}>
-                {topic.slug.slice(0, 1).toUpperCase() + topic.slug.slice(1)}
-              </li>
+              <Link to={`/${topic.slug}`}>
+                <li key={topic.slug}>
+                  {topic.slug.slice(0, 1).toUpperCase() + topic.slug.slice(1)}
+                </li>
+              </Link>
             );
           })}
         </ul>
