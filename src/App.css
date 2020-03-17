@@ -1,10 +1,11 @@
 .app {
   display: grid;
-  grid-template: 10% 40% 50% / 2fr 1fr;
+  grid-template: 10% 10% 10% 1fr / 1fr;
   grid-template-areas:
-    "header       header"
-    "article-list desc"
-    "article-list nav";
+    "header"
+    "nav"
+    "desc"
+    "article-list";
   text-align: center;
   height: 100vh;
 }
@@ -25,6 +26,7 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+  overflow-y: scroll;
 }
 
 .description {
@@ -52,68 +54,72 @@
 }
 
 #card-topic {
-  font-size: 1.5vw;
+  padding: 1%;
+  font-size: 0.8em;
   grid-area: card-topic;
 }
 
 #card-author {
-  font-size: 1.5vw;
+  padding: 1%;
+  font-size: 0.8em;
   grid-area: card-author;
 }
 
 #card-title {
   grid-area: card-title;
-  font-size: 2.5vw;
+  font-size: 1em;
   font-weight: bold;
   align-self: center;
 }
 
 #card-comments {
-  font-size: 1.5vw;
+  padding: 1% 0;
+  font-size: 0.8em;
   grid-area: card-comments;
 }
 
 #card-votes {
-  font-size: 1.5vw;
+  padding: 1%;
+  font-size: 0.8em;
   grid-area: card-votes;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 768px) {
   .app {
     display: grid;
-    grid-template-rows: 10% 10% 10% 1fr;
+    grid-template: 10% 40% 50% / 2fr 1fr;
     grid-template-areas:
       "header       header"
-      "nav          nav"
-      "desc         desc"
-      "article-list article-list";
+      "article-list desc"
+      "article-list nav";
     text-align: center;
     height: 100vh;
   }
+
   #card-topic {
-    font-size: 0.6em;
+    font-size: 1.5vw;
     grid-area: card-topic;
   }
 
   #card-author {
-    font-size: 0.6em;
+    font-size: 1.5vw;
     grid-area: card-author;
   }
 
   #card-title {
     grid-area: card-title;
-    font-size: 1em;
+    font-size: 2.5vw;
     font-weight: bold;
     align-self: center;
   }
 
   #card-comments {
-    font-size: 0.6em;
+    font-size: 1.5vw;
     grid-area: card-comments;
   }
 
   #card-votes {
-    font-size: 0.6em;
+    font-size: 1.5vw;
     grid-area: card-votes;
   }
 }

@@ -28,15 +28,16 @@ class AllArticles extends Component {
     ]
   };
 
-  // fetchArticles = () => {
-  //   getArticles().then(data => {
-  //     console.log(data.body);
-  //   });
-  // };
+  fetchArticles = () => {
+    getArticles().then(res => {
+      this.setState({ articles: res.data.articles });
+      console.log(res.data.articles);
+    });
+  };
 
-  // componentDidMount() {
-  //   this.fetchArticles();
-  // }
+  componentDidMount() {
+    this.fetchArticles();
+  }
 
   render() {
     const { articles } = this.state;
@@ -44,7 +45,7 @@ class AllArticles extends Component {
       <ul className="article-list">
         {articles.map(article => {
           return (
-            <li key={article.id}>
+            <li key={article.article_id}>
               <ArticleCard article={article} />
             </li>
           );
