@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import ArticleCard from "./ArticleCard";
 import { getArticles } from "../api";
 
-class AllArticles extends Component {
-  state = {
-    articles: []
-  };
+class ArticlesByTopic extends Component {
+  state = { articles: [] };
 
   fetchArticles = () => {
-    getArticles().then(res => {
+    getArticles(this.props.topic).then(res => {
+      console.log(res.data.articles);
       this.setState({ articles: res.data.articles });
     });
   };
@@ -33,4 +32,4 @@ class AllArticles extends Component {
   }
 }
 
-export default AllArticles;
+export default ArticlesByTopic;

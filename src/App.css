@@ -1,6 +1,6 @@
 .app {
   display: grid;
-  grid-template: 10% 10% 10% 1fr / 1fr;
+  grid-template: 10% 15% 15% 1fr / 1fr;
   grid-template-areas:
     "header"
     "nav"
@@ -8,6 +8,7 @@
     "article-list";
   text-align: center;
   height: 100vh;
+  background-color: whitesmoke;
 }
 
 .app-header {
@@ -23,38 +24,45 @@
 
 .article-list {
   grid-area: article-list;
+
+  overflow-y: scroll;
+}
+
+.article-list ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow-y: scroll;
 }
 
 .description {
   grid-area: desc;
-  border: 2px solid black;
-  margin: 5px 2px;
+  box-shadow: 1px 1px 5px;
+  border-radius: 10px;
+  margin: 1% 2%;
+  background-color: white;
 }
 
 .nav-area {
   grid-area: nav;
-  border: 2px solid black;
-  margin: 5px 2px;
+  box-shadow: 1px 1px 5px;
+  border-radius: 10px;
+  margin: 1% 2%;
+  background-color: white;
 }
 
 .article-card {
   display: grid;
   grid-template: 25% 1fr 25% / 20% 2fr 20%;
   grid-template-areas:
-    "card-topic card-title card-author"
-    ". card-title ."
+    "card-topic    card-title card-author"
+    ".             card-title card-date"
     "card-comments card-title card-votes";
   background-color: white;
-  border: 1px solid black;
-  border-radius: 10px;
   min-height: 100px;
   margin: 2%;
   padding: 1% 1%;
-  box-shadow: 4px 4px 4px;
+  box-shadow: 1px 1px 5px;
+  border-radius: 10px;
 }
 
 #card-topic {
@@ -88,12 +96,41 @@
   grid-area: card-votes;
 }
 
+#card-date {
+  padding: 1%;
+  font-size: 0.7em;
+  grid-area: card-date;
+}
+
+.topics {
+  display: flex;
+}
+
+.topics h3 {
+  display: flex;
+  width: 20%;
+  justify-self: flex-start;
+  padding: 0 5% 0 0;
+  margin: 0 0 0 2%;
+}
+
 .topic-list {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  justify-self: self-end;
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.topic-list li {
+  padding: 2%;
+}
+
+.sort-options {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 3%;
 }
 
 @media only screen and (min-width: 768px) {
@@ -135,7 +172,24 @@
     grid-area: card-votes;
   }
 
+  #card-date {
+    font-size: 1.3vw;
+    grid-area: card-date;
+  }
+
   .topic-list {
     flex-direction: column;
+  }
+
+  .sort-options {
+    margin: 5% 0 20%;
+  }
+
+  .topics h3 {
+    padding: 0 25% 0 0;
+  }
+
+  .topic-list li {
+    margin: 5% 0;
   }
 }

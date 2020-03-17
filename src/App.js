@@ -5,7 +5,7 @@ import Nav from "./Components/Nav";
 import { Router } from "@reach/router";
 import SiteDesc from "./Components/SiteDesc";
 import TopicDesc from "./Components/TopicDesc";
-import ArticlesByTopic from "./ArticlesByTopic";
+import ArticlesByTopic from "./Components/ArticlesByTopic";
 
 function App() {
   return (

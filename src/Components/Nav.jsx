@@ -1,14 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import TopicList from "./TopicList";
+import SortArticleList from "./SortArticleList";
 
-class Nav extends Component {
-  render() {
-    return (
-      <div className="nav-area">
-        <TopicList />
-      </div>
-    );
-  }
-}
+const Nav = props => {
+  return (
+    <div className="nav-area">
+      <SortArticleList />
+      <TopicList />
+    </div>
+  );
+};
 
 export default Nav;
