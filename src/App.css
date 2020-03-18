@@ -97,6 +97,8 @@
 }
 
 #card-date {
+  display: flex;
+  align-items: center;
   padding: 1%;
   font-size: 0.7em;
   grid-area: card-date;
