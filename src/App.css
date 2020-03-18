@@ -12,10 +12,11 @@
 .page {
   grid-area: page;
   display: grid;
-  grid-template: 20% 20% 1fr / 1fr;
+  grid-template: 20% 20% 1fr 1fr / 1fr;
   grid-template-areas:
-    "nav"
     "desc"
+    "nav"
+    "article-list"
     "article-list";
   text-align: center;
   background-color: whitesmoke;
@@ -71,6 +72,7 @@
   padding: 1% 1%;
   box-shadow: 1px 1px 5px;
   border-radius: 10px;
+  overflow: auto;
 }
 
 #card-topic {
@@ -90,6 +92,11 @@
   font-size: 1em;
   font-weight: bold;
   align-self: center;
+}
+
+#card-title a {
+  text-decoration: none;
+  color: black;
 }
 
 #card-comments {
@@ -141,6 +148,48 @@
   display: flex;
   justify-content: space-around;
   margin-bottom: 3%;
+}
+
+.article-body {
+  justify-self: normal;
+  border-radius: 10px;
+  background-color: white;
+  grid-row: span 2;
+  overflow: auto;
+}
+
+.article-details {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  box-shadow: 1px 1px 5px;
+  border-radius: 10px;
+  margin: 1% 2%;
+  background-color: white;
+  overflow-y: hidden;
+}
+
+.article-details button {
+  display: inline;
+}
+
+.article-details a {
+  text-decoration: none;
+  font-style: italic;
+  color: black;
+}
+
+.article-comments {
+}
+
+.comment-card {
+  display: grid;
+  min-height: 100px;
+  margin: 2%;
+  padding: 1% 1%;
+  box-shadow: 1px 1px 5px;
+  border-radius: 10px;
+  overflow: auto;
 }
 
 @media only screen and (min-width: 768px) {
@@ -210,5 +259,13 @@
 
   .topic-list li {
     margin: 5% 0;
+  }
+
+  .article-body {
+    grid-row: span 2;
+  }
+
+  .article-details {
+    display: block;
   }
 }

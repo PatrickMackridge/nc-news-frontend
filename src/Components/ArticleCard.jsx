@@ -11,7 +11,9 @@ const ArticleCard = ({ article }) => {
         </div>
       </Link>
       <div id="card-author">{article.author}</div>
-      <div id="card-title">{article.title}</div>
+      <div id="card-title">
+        <Link to={`/articles/${article.article_id}`}>{article.title}</Link>
+      </div>
       <div id="card-date">
         Posted: {moment(article.created_at).format("Do MMM YYYY, h:mm:ss a")}
       </div>
