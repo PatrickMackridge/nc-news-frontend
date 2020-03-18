@@ -5,7 +5,7 @@ import SortArticleList from "./SortArticleList";
 const Nav = props => {
   return (
     <div className="nav-area">
-      <SortArticleList />
+      <SortArticleList sortArticles={props.sortArticles} />
       <TopicList topics={props.topics} />
     </div>
   );

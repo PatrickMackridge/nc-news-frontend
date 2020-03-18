@@ -7,11 +7,14 @@ import SiteDesc from "./SiteDesc";
 class AllArticles extends Component {
   state = {
     articles: [],
-    topics: []
+    topics: [],
+    sort_by: "created_at",
+    order: "desc"
   };
 
   fetchArticles = () => {
-    getArticles().then(res => {
+    const { sort_by, order } = this.state;
+    getArticles({ sort_by, order }).then(res => {
       this.setState({ articles: res.data.articles });
     });
   };
@@ -22,9 +25,25 @@ class AllArticles extends Component {
     });
   };
 
+  sortArticles = event => {
+    if (event.target.className === "sort") {
+      this.setState({ sort_by: event.target.value });
+    }
+    if (event.target.className === "order") {
+      this.setState({ order: event.target.value });
+    }
+  };
+
   componentDidMount() {
     this.fetchArticles();
     this.fetchTopics();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { sort_by, order } = this.state;
+    if (prevState.sort_by !== sort_by || prevState.order !== order) {
+      this.fetchArticles();
+    }
   }
 
   render() {
@@ -41,7 +60,7 @@ class AllArticles extends Component {
           })}
         </ul>
         <SiteDesc />
-        <Nav topics={this.state.topics} />
+        <Nav topics={this.state.topics} sortArticles={this.sortArticles} />
       </>
     );
   }

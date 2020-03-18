@@ -8,8 +8,8 @@ const TopicList = props => {
       <ul className="topic-list">
         {props.topics.map(topic => {
           return (
-            <Link to={`/${topic.slug}`}>
-              <li key={topic.slug}>
+            <Link to={`/${topic.slug}`} key={topic.slug}>
+              <li>
                 {topic.slug.slice(0, 1).toUpperCase() + topic.slug.slice(1)}
               </li>
             </Link>

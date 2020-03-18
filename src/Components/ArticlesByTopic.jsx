@@ -5,10 +5,12 @@ import TopicDesc from "./TopicDesc";
 import Nav from "./Nav";
 
 class ArticlesByTopic extends Component {
-  state = { articles: [], topics: [] };
+  state = { articles: [], topics: [], sort_by: "created_at", order: "desc" };
 
   fetchArticles = () => {
-    getArticles(this.props.topic).then(res => {
+    const { topic } = this.props;
+    const { sort_by, order } = this.state;
+    getArticles({ sort_by, order }, topic).then(res => {
       this.setState({ articles: res.data.articles });
     });
   };
@@ -19,13 +21,26 @@ class ArticlesByTopic extends Component {
     });
   };
 
+  sortArticles = event => {
+    if (event.target.className === "sort") {
+      this.setState({ sort_by: event.target.value });
+    }
+    if (event.target.className === "order") {
+      this.setState({ order: event.target.value });
+    }
+  };
+
   componentDidMount() {
     this.fetchArticles();
     this.fetchTopics();
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { sort_by, order } = this.state;
     if (prevProps.topic !== this.props.topic) {
+      this.fetchArticles();
+    }
+    if (prevState.sort_by !== sort_by || prevState.order !== order) {
       this.fetchArticles();
     }
   }
@@ -47,7 +62,7 @@ class ArticlesByTopic extends Component {
           chosenTopic={this.props.topic}
           topicList={this.state.topics}
         />
-        <Nav topics={this.state.topics} />
+        <Nav topics={this.state.topics} sortArticles={this.sortArticles} />
       </>
     );
   }
