@@ -164,7 +164,7 @@
   flex-wrap: wrap;
   box-shadow: 1px 1px 5px;
   border-radius: 10px;
-  margin: 1% 2%;
+  margin: 1% 2% 0;
   background-color: white;
   overflow-y: hidden;
 }
@@ -174,22 +174,39 @@
 }
 
 .article-details a {
-  text-decoration: none;
-  font-style: italic;
+  text-decoration: underline;
   color: black;
 }
 
 .article-comments {
+  overflow: scroll;
+  list-style-type: none;
+}
+
+.article-comments ul {
+  list-style-type: none;
+  margin: 1% 0;
+  padding: 0;
 }
 
 .comment-card {
   display: grid;
+  grid-template-rows: 20% 1fr 20%;
   min-height: 100px;
   margin: 2%;
   padding: 1% 1%;
   box-shadow: 1px 1px 5px;
   border-radius: 10px;
   overflow: auto;
+}
+
+.comment-card p {
+  margin: 0;
+  font-size: 80%;
+}
+
+#comment-title {
+  font-style: italic;
 }
 
 @media only screen and (min-width: 768px) {

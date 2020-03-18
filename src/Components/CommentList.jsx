@@ -1,12 +1,35 @@
 import React, { Component } from "react";
 import CommentCard from "./CommentCard";
+import { getComments } from "../api";
 
 class CommentList extends Component {
+  state = {
+    comments: []
+  };
+
+  fetchComments = () => {
+    getComments(this.props.article_id).then(res => {
+      this.setState({ comments: res.data.comments });
+    });
+  };
+  // fetchComments => getComments(props.article.id) map(<li> return CommentCard/> </li>)
+
+  componentDidMount() {
+    this.fetchComments();
+  }
+
   render() {
+    const { comments } = this.state;
     return (
-      <div>
-        <CommentCard />
-      </div>
+      <ul className="comments-list">
+        {comments.map(comment => {
+          return (
+            <li>
+              <CommentCard comment={comment} />
+            </li>
+          );
+        })}
+      </ul>
     );
   }
 }

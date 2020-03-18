@@ -5,7 +5,11 @@ import * as moment from "moment";
 import CommentList from "./CommentList";
 
 class ArticlePage extends Component {
-  state = { article: {}, isLoading: true, commentsShowing: false };
+  state = {
+    article: {},
+    isLoading: true,
+    commentsShowing: false
+  };
 
   fetchArticle = () => {
     getArticle(this.props.article_id).then(res => {
@@ -58,6 +62,7 @@ class ArticlePage extends Component {
           <p>
             Comments: {article.comment_count}
             <br />
+            <br />
             <button onClick={this.toggleComments}>
               {commentsShowing ? "Hide Comments" : "Show Comments"}
             </button>
@@ -65,7 +70,7 @@ class ArticlePage extends Component {
         </div>
         {commentsShowing ? (
           <div className="article-comments">
-            <CommentList />
+            <CommentList article_id={article.article_id} />
           </div>
         ) : null}
       </>
