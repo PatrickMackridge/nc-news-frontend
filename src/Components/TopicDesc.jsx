@@ -1,7 +1,7 @@
 import React from "react";
 
 const TopicDesc = () => {
-  return <div>Description of specific topic</div>;
+  return <div className="description">Description of specific topic</div>;
 };
 
 export default TopicDesc;

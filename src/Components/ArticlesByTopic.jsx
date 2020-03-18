@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import ArticleCard from "./ArticleCard";
-import { getArticles } from "../api";
+import { getArticles, getTopics } from "../api";
+import TopicDesc from "./TopicDesc";
+import Nav from "./Nav";
 
 class ArticlesByTopic extends Component {
-  state = { articles: [] };
+  state = { articles: [], topics: [] };
 
   fetchArticles = () => {
     getArticles(this.props.topic).then(res => {
@@ -25,15 +27,19 @@ class ArticlesByTopic extends Component {
   render() {
     const { articles } = this.state;
     return (
-      <ul>
-        {articles.map(article => {
-          return (
-            <li key={article.article_id}>
-              <ArticleCard article={article} />
-            </li>
-          );
-        })}
-      </ul>
+      <>
+        <ul className="article-list">
+          {articles.map(article => {
+            return (
+              <li key={article.article_id}>
+                <ArticleCard article={article} />
+              </li>
+            );
+          })}
+        </ul>
+        <TopicDesc />
+        <Nav />
+      </>
     );
   }
 }

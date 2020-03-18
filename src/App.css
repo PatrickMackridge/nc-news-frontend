@@ -1,18 +1,29 @@
 .app {
   display: grid;
-  grid-template: 10% 15% 15% 1fr / 1fr;
+  grid-template: 10% 1fr / 1fr;
   grid-template-areas:
     "header"
-    "nav"
-    "desc"
-    "article-list";
+    "page";
   text-align: center;
   height: 100vh;
   background-color: whitesmoke;
 }
 
+.page {
+  grid-area: page;
+  display: grid;
+  grid-template: 20% 20% 1fr / 1fr;
+  grid-template-areas:
+    "nav"
+    "desc"
+    "article-list";
+  text-align: center;
+  background-color: whitesmoke;
+  height: 100vh;
+}
+
 .app-header {
-  grid-column-start: span 2;
+  grid-area: header;
   background-color: #232a39;
   display: flex;
   align-items: center;
@@ -20,15 +31,12 @@
   font-size: 5vw;
   font-weight: bold;
   color: white;
+  text-decoration: none;
 }
 
 .article-list {
   grid-area: article-list;
-
   overflow-y: scroll;
-}
-
-.article-list ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -138,13 +146,22 @@
 @media only screen and (min-width: 768px) {
   .app {
     display: grid;
-    grid-template: 10% 35% 55% / 2fr 1fr;
+    grid-template: 10% 1fr / 1fr;
     grid-template-areas:
-      "header       header"
+      "header"
+      "page";
+    text-align: center;
+    height: 100vh;
+  }
+
+  .page {
+    grid-area: page;
+    display: grid;
+    grid-template: 40% 60% / 2fr 1fr;
+    grid-template-areas:
       "article-list desc"
       "article-list nav";
     text-align: center;
-    height: 100vh;
   }
 
   #card-topic {

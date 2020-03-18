@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ArticleCard from "./ArticleCard";
 import { getArticles } from "../api";
+import Nav from "./Nav";
+import SiteDesc from "./SiteDesc";
 
 class AllArticles extends Component {
   state = {
@@ -20,15 +22,19 @@ class AllArticles extends Component {
   render() {
     const { articles } = this.state;
     return (
-      <ul>
-        {articles.map(article => {
-          return (
-            <li key={article.article_id}>
-              <ArticleCard article={article} />
-            </li>
-          );
-        })}
-      </ul>
+      <>
+        <ul className="article-list">
+          {articles.map(article => {
+            return (
+              <li key={article.article_id}>
+                <ArticleCard article={article} />
+              </li>
+            );
+          })}
+        </ul>
+        <SiteDesc />
+        <Nav />
+      </>
     );
   }
 }
