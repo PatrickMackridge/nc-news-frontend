@@ -6,7 +6,7 @@ const Nav = props => {
   return (
     <div className="nav-area">
       <SortArticleList />
-      <TopicList />
+      <TopicList topics={props.topics} />
     </div>
   );
 };

@@ -9,13 +9,19 @@ class ArticlesByTopic extends Component {
 
   fetchArticles = () => {
     getArticles(this.props.topic).then(res => {
-      console.log(res.data.articles);
       this.setState({ articles: res.data.articles });
+    });
+  };
+
+  fetchTopics = () => {
+    getTopics().then(res => {
+      this.setState({ topics: res.data.topics });
     });
   };
 
   componentDidMount() {
     this.fetchArticles();
+    this.fetchTopics();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -37,8 +43,11 @@ class ArticlesByTopic extends Component {
             );
           })}
         </ul>
-        <TopicDesc />
-        <Nav />
+        <TopicDesc
+          chosenTopic={this.props.topic}
+          topicList={this.state.topics}
+        />
+        <Nav topics={this.state.topics} />
       </>
     );
   }

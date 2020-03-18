@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import ArticleCard from "./ArticleCard";
-import { getArticles } from "../api";
+import { getArticles, getTopics } from "../api";
 import Nav from "./Nav";
 import SiteDesc from "./SiteDesc";
 
 class AllArticles extends Component {
   state = {
-    articles: []
+    articles: [],
+    topics: []
   };
 
   fetchArticles = () => {
@@ -15,8 +16,15 @@ class AllArticles extends Component {
     });
   };
 
+  fetchTopics = () => {
+    getTopics().then(res => {
+      this.setState({ topics: res.data.topics });
+    });
+  };
+
   componentDidMount() {
     this.fetchArticles();
+    this.fetchTopics();
   }
 
   render() {
@@ -33,7 +41,7 @@ class AllArticles extends Component {
           })}
         </ul>
         <SiteDesc />
-        <Nav />
+        <Nav topics={this.state.topics} />
       </>
     );
   }
