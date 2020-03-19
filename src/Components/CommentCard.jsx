@@ -25,6 +25,15 @@ const CommentCard = props => {
         >
           -1
         </button>
+        {props.comment.author === props.user ? (
+          <button
+            onClick={() => {
+              props.removeComment(props.comment.comment_id);
+            }}
+          >
+            Delete
+          </button>
+        ) : null}
       </p>
     </div>
   );

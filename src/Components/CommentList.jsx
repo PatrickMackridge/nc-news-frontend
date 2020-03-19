@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CommentCard from "./CommentCard";
-import { getComments, patchCommentVotes } from "../api";
+import { getComments, patchCommentVotes, deleteComment } from "../api";
 
 class CommentList extends Component {
   state = {
@@ -18,6 +18,7 @@ class CommentList extends Component {
       const updatedComment = res.data.comment;
       this.setState(currentState => {
         const commentList = [...currentState.comments];
+        // better way below ? backend katas?
         commentList.forEach((comment, i) => {
           if (comment.comment_id === commentId) {
             commentList.splice(i, 1, updatedComment);
@@ -25,6 +26,12 @@ class CommentList extends Component {
         });
         return { comments: commentList };
       });
+    });
+  };
+
+  removeComment = commentId => {
+    deleteComment(commentId).then(() => {
+      this.fetchComments();
     });
   };
 
@@ -42,6 +49,8 @@ class CommentList extends Component {
               <CommentCard
                 comment={comment}
                 changeCommentVote={this.changeCommentVote}
+                user={this.props.user}
+                removeComment={this.removeComment}
               />
             </li>
           );

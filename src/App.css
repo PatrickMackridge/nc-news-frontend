@@ -60,6 +60,7 @@
   border-radius: 10px;
   margin: 1% 2%;
   background-color: white;
+  overflow: auto;
 }
 
 .login {
@@ -177,6 +178,15 @@
   margin: 1% 2% 0;
   background-color: white;
   overflow-y: hidden;
+  font-size: 85%;
+}
+
+.article-details .login {
+  padding: 0;
+}
+
+.article-details .login p {
+  padding: 0;
 }
 
 .article-details button {
@@ -186,6 +196,10 @@
 .article-details a {
   text-decoration: underline;
   color: black;
+}
+
+.article-details p {
+  margin: 2%;
 }
 
 .article-comments {
@@ -234,7 +248,7 @@
   .page {
     grid-area: page;
     display: grid;
-    grid-template: 30% 70% / 2fr 1fr;
+    grid-template: 35% 65% / 2fr 1fr;
     grid-template-areas:
       "article-list desc"
       "article-list nav";
@@ -289,6 +303,10 @@
     margin: 5% 0;
   }
 
+  .topics {
+    margin-top: 10%;
+  }
+
   .topics h3 {
     padding: 0 25% 0 0;
   }
@@ -303,5 +321,9 @@
 
   .article-details {
     display: block;
+  }
+
+  .article-details button {
+    margin: 1% 0;
   }
 }

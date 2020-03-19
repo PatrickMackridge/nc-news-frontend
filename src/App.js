@@ -36,7 +36,12 @@ class App extends React.Component {
             logIn={this.logInUser}
             logOut={this.logOutUser}
           />
-          <ArticlePage path="articles/:article_id" user={loggedInUser} />
+          <ArticlePage
+            path="articles/:article_id"
+            user={loggedInUser}
+            logIn={this.logInUser}
+            logOut={this.logOutUser}
+          />
         </Router>
       </div>
     );

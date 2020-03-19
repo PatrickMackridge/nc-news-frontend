@@ -35,3 +35,7 @@ export const patchCommentVotes = (commentId, direction) => {
     inc_votes: direction
   });
 };
+
+export const deleteComment = commentId => {
+  return axios.delete(`${baseUrl}/comments/${commentId}`);
+};

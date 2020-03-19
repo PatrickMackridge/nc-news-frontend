@@ -3,6 +3,7 @@ import { getArticle, patchArticleVotes } from "../api";
 import { Link } from "@reach/router";
 import * as moment from "moment";
 import CommentList from "./CommentList";
+import LogInForm from "./LogInForm";
 
 class ArticlePage extends Component {
   state = {
@@ -52,6 +53,11 @@ class ArticlePage extends Component {
           <p className="article-text">{article.body}</p>
         </div>
         <div className="article-details">
+          <LogInForm
+            user={this.props.user}
+            logIn={this.props.logIn}
+            logOut={this.props.logOut}
+          />
           <p>
             Topic:{" "}
             <Link to={`/${article.topic}`}>
@@ -83,7 +89,6 @@ class ArticlePage extends Component {
           <p>
             Comments: {article.comment_count}
             <br />
-            <br />
             <button onClick={this.toggleComments}>
               {commentsShowing ? "Hide Comments" : "Show Comments"}
             </button>
@@ -91,7 +96,10 @@ class ArticlePage extends Component {
         </div>
         {commentsShowing ? (
           <div className="article-comments">
-            <CommentList article_id={article.article_id} />
+            <CommentList
+              article_id={article.article_id}
+              user={this.props.user}
+            />
           </div>
         ) : null}
       </>
