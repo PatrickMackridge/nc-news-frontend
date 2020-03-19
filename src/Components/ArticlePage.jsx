@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getArticle } from "../api";
+import { getArticle, patchArticleVotes } from "../api";
 import { Link } from "@reach/router";
 import * as moment from "moment";
 import CommentList from "./CommentList";
@@ -20,6 +20,13 @@ class ArticlePage extends Component {
   toggleComments = event => {
     this.setState(currentState => {
       return { commentsShowing: !currentState.commentsShowing };
+    });
+  };
+
+  changeVote = (event, direction) => {
+    console.log(event.target.value);
+    patchArticleVotes(this.state.article.article_id, direction).then(res => {
+      this.setState({ article: res.data.article });
     });
   };
 
@@ -57,7 +64,21 @@ class ArticlePage extends Component {
             {moment(article.created_at).format("Do MMM YYYY, h:mm:ss a")}
           </p>
           <p>
-            Votes: {article.votes} <button>+1</button>
+            Votes: {article.votes}{" "}
+            <button
+              onClick={event => {
+                this.changeVote(event, 1);
+              }}
+            >
+              +1
+            </button>{" "}
+            <button
+              onClick={event => {
+                this.changeVote(event, -1);
+              }}
+            >
+              -1
+            </button>
           </p>
           <p>
             Comments: {article.comment_count}

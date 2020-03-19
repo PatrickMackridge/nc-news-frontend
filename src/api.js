@@ -19,3 +19,9 @@ export const getArticle = article_id => {
 export const getComments = article_id => {
   return axios.get(`${baseUrl}/articles/${article_id}/comments`);
 };
+
+export const patchArticleVotes = (article_id, direction) => {
+  return axios.patch(`${baseUrl}/articles/${article_id}`, {
+    inc_votes: direction
+  });
+};
