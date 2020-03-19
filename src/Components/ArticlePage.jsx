@@ -4,12 +4,14 @@ import { Link } from "@reach/router";
 import * as moment from "moment";
 import CommentList from "./CommentList";
 import LogInForm from "./LogInForm";
+import PostCommentForm from "./PostCommentForm";
 
 class ArticlePage extends Component {
   state = {
     article: {},
     isLoading: true,
-    commentsShowing: false
+    commentsShowing: false,
+    newComment: null
   };
 
   fetchArticle = () => {
@@ -25,10 +27,14 @@ class ArticlePage extends Component {
   };
 
   changeVote = (event, direction) => {
-    console.log(event.target.value);
     patchArticleVotes(this.state.article.article_id, direction).then(res => {
+      // console.log(res.data.article);
       this.setState({ article: res.data.article });
     });
+  };
+
+  setNewComment = comment => {
+    this.setState({ newComment: comment });
   };
 
   componentDidMount() {
@@ -42,7 +48,7 @@ class ArticlePage extends Component {
   }
 
   render() {
-    const { article, isLoading, commentsShowing } = this.state;
+    const { article, isLoading, commentsShowing, newComment } = this.state;
     if (isLoading === true) {
       return <div>Loading...</div>;
     }
@@ -51,6 +57,12 @@ class ArticlePage extends Component {
         <div className="article-body">
           <h2>{article.title}</h2>
           <p className="article-text">{article.body}</p>
+          {commentsShowing ? (
+            <PostCommentForm
+              user={this.props.user}
+              setNewComment={this.setNewComment}
+            />
+          ) : null}
         </div>
         <div className="article-details">
           <LogInForm
@@ -87,10 +99,9 @@ class ArticlePage extends Component {
             </button>
           </p>
           <p>
-            Comments: {article.comment_count}
-            <br />
+            {article.comment_count} comments:{" "}
             <button onClick={this.toggleComments}>
-              {commentsShowing ? "Hide Comments" : "Show Comments"}
+              {commentsShowing ? "Hide" : "Show"}
             </button>
           </p>
         </div>
@@ -99,6 +110,7 @@ class ArticlePage extends Component {
             <CommentList
               article_id={article.article_id}
               user={this.props.user}
+              newComment={newComment}
             />
           </div>
         ) : null}

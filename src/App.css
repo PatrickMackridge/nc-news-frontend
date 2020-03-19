@@ -163,10 +163,10 @@
 
 .article-body {
   justify-self: normal;
-  border-radius: 10px;
   background-color: white;
   grid-row: span 2;
   overflow: auto;
+  margin: 0;
 }
 
 .article-details {
@@ -179,6 +179,7 @@
   background-color: white;
   overflow-y: hidden;
   font-size: 85%;
+  padding-bottom: 1%;
 }
 
 .article-details .login {
@@ -200,6 +201,28 @@
 
 .article-details p {
   margin: 2%;
+}
+
+.comment-form {
+  display: flex;
+  justify-content: center;
+  margin: 2%;
+  padding-bottom: 1%;
+  border: 1px solid black;
+  overflow: auto;
+  background-color: whitesmoke;
+  height: fit-content;
+}
+
+.comment-form label {
+  display: flex;
+  padding: 1%;
+}
+
+#comment-text {
+  height: 100%;
+  width: 100%;
+  outline: none;
 }
 
 .article-comments {
@@ -321,9 +344,5 @@
 
   .article-details {
     display: block;
-  }
-
-  .article-details button {
-    margin: 1% 0;
   }
 }

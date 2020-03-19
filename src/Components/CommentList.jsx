@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import CommentCard from "./CommentCard";
-import { getComments, patchCommentVotes, deleteComment } from "../api";
+import {
+  getComments,
+  patchCommentVotes,
+  deleteComment,
+  postComment
+} from "../api";
 
 class CommentList extends Component {
   state = {
@@ -34,6 +39,16 @@ class CommentList extends Component {
       this.fetchComments();
     });
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    const { newComment, article_id, user } = this.props;
+    if (prevProps.newComment !== newComment) {
+      console.log(newComment);
+      postComment(article_id, user, newComment).then(() => {
+        this.fetchComments();
+      });
+    }
+  }
 
   componentDidMount() {
     this.fetchComments();

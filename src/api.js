@@ -36,6 +36,13 @@ export const patchCommentVotes = (commentId, direction) => {
   });
 };
 
+export const postComment = (articleId, username, body) => {
+  return axios.post(`${baseUrl}/articles/${articleId}/comments`, {
+    username: username,
+    body: body
+  });
+};
+
 export const deleteComment = commentId => {
   return axios.delete(`${baseUrl}/comments/${commentId}`);
 };
