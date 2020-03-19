@@ -5,19 +5,42 @@ import { Router, Link } from "@reach/router";
 import ArticlesByTopic from "./Components/ArticlesByTopic";
 import ArticlePage from "./Components/ArticlePage";
 
-function App() {
-  return (
-    <div className="app">
-      <Link to="/" className="app-header">
-        <header>Northcoders News</header>
-      </Link>
-      <Router className="page">
-        <AllArticles path="/" />
-        <ArticlesByTopic path="/:topic" />
-        <ArticlePage path="articles/:article_id" />
-      </Router>
-    </div>
-  );
+class App extends React.Component {
+  state = { loggedInUser: null };
+
+  logInUser = username => {
+    this.setState({ loggedInUser: username });
+  };
+
+  logOutUser = () => {
+    this.setState({ loggedInUser: null });
+  };
+
+  render() {
+    const { loggedInUser } = this.state;
+    return (
+      <div className="app">
+        <Link to="/" className="app-header">
+          <header>Northcoders News</header>
+        </Link>
+        <Router className="page">
+          <AllArticles
+            path="/"
+            user={loggedInUser}
+            logIn={this.logInUser}
+            logOut={this.logOutUser}
+          />
+          <ArticlesByTopic
+            path="/:topic"
+            user={loggedInUser}
+            logIn={this.logInUser}
+            logOut={this.logOutUser}
+          />
+          <ArticlePage path="articles/:article_id" user={loggedInUser} />
+        </Router>
+      </div>
+    );
+  }
 }
 
 export default App;

@@ -12,7 +12,7 @@
 .page {
   grid-area: page;
   display: grid;
-  grid-template: 20% 20% 1fr 1fr / 1fr;
+  grid-template: 15% 25% 1fr 1fr / 1fr;
   grid-template-areas:
     "desc"
     "nav"
@@ -49,14 +49,25 @@
   border-radius: 10px;
   margin: 1% 2%;
   background-color: white;
+  overflow-y: auto;
 }
 
 .nav-area {
   grid-area: nav;
+  display: grid;
+  grid-template-rows: 20% 25% 55%;
   box-shadow: 1px 1px 5px;
   border-radius: 10px;
   margin: 1% 2%;
   background-color: white;
+}
+
+.login {
+  vertical-align: center;
+}
+
+.login p {
+  margin: 0;
 }
 
 .article-card {
@@ -133,7 +144,6 @@
 
 .topics ul {
   display: flex;
-  justify-content: space-evenly;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -147,7 +157,7 @@
 .sort-options {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 3%;
+  padding: 1%;
 }
 
 .article-body {
@@ -224,11 +234,19 @@
   .page {
     grid-area: page;
     display: grid;
-    grid-template: 40% 60% / 2fr 1fr;
+    grid-template: 30% 70% / 2fr 1fr;
     grid-template-areas:
       "article-list desc"
       "article-list nav";
     text-align: center;
+  }
+
+  .login {
+    padding-top: 10%;
+  }
+
+  .login p {
+    padding-bottom: 5%;
   }
 
   #card-topic {
@@ -268,7 +286,7 @@
   }
 
   .sort-options {
-    margin: 5% 0 20%;
+    margin: 5% 0;
   }
 
   .topics h3 {

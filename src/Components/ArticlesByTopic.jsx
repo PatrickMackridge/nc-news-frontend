@@ -62,7 +62,13 @@ class ArticlesByTopic extends Component {
           chosenTopic={this.props.topic}
           topicList={this.state.topics}
         />
-        <Nav topics={this.state.topics} sortArticles={this.sortArticles} />
+        <Nav
+          topics={this.state.topics}
+          sortArticles={this.sortArticles}
+          user={this.props.user}
+          logIn={this.props.logIn}
+          logOut={this.props.logOut}
+        />
       </>
     );
   }
