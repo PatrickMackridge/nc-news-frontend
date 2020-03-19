@@ -10,7 +10,21 @@ const CommentCard = props => {
       </p>
       <p>{props.comment.body}</p>
       <p>
-        Votes: {props.comment.votes} <button>+1</button> <button>-1</button>
+        Votes: {props.comment.votes}{" "}
+        <button
+          onClick={event => {
+            props.changeCommentVote(props.comment.comment_id, 1);
+          }}
+        >
+          +1
+        </button>{" "}
+        <button
+          onClick={event => {
+            props.changeCommentVote(props.comment.comment_id, -1);
+          }}
+        >
+          -1
+        </button>
       </p>
     </div>
   );

@@ -198,11 +198,12 @@
   box-shadow: 1px 1px 5px;
   border-radius: 10px;
   overflow: auto;
+  background-color: white;
 }
 
 .comment-card p {
   margin: 0;
-  font-size: 80%;
+  font-size: 75%;
 }
 
 #comment-title {

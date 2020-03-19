@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CommentCard from "./CommentCard";
-import { getComments } from "../api";
+import { getComments, patchCommentVotes } from "../api";
 
 class CommentList extends Component {
   state = {
@@ -12,7 +12,21 @@ class CommentList extends Component {
       this.setState({ comments: res.data.comments });
     });
   };
-  // fetchComments => getComments(props.article.id) map(<li> return CommentCard/> </li>)
+
+  changeCommentVote = (commentId, direction) => {
+    patchCommentVotes(commentId, direction).then(res => {
+      const updatedComment = res.data.comment;
+      this.setState(currentState => {
+        const commentList = [...currentState.comments];
+        commentList.forEach((comment, i) => {
+          if (comment.comment_id === commentId) {
+            commentList.splice(i, 1, updatedComment);
+          }
+        });
+        return { comments: commentList };
+      });
+    });
+  };
 
   componentDidMount() {
     this.fetchComments();
@@ -25,7 +39,10 @@ class CommentList extends Component {
         {comments.map(comment => {
           return (
             <li key={comment.comment_id}>
-              <CommentCard comment={comment} />
+              <CommentCard
+                comment={comment}
+                changeCommentVote={this.changeCommentVote}
+              />
             </li>
           );
         })}

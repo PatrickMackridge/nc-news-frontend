@@ -12,16 +12,22 @@ export const getTopics = () => {
   return axios.get(`${baseUrl}/topics`);
 };
 
-export const getArticle = article_id => {
-  return axios.get(`${baseUrl}/articles/${article_id}`);
+export const getArticle = articleId => {
+  return axios.get(`${baseUrl}/articles/${articleId}`);
 };
 
-export const getComments = article_id => {
-  return axios.get(`${baseUrl}/articles/${article_id}/comments`);
+export const getComments = articleId => {
+  return axios.get(`${baseUrl}/articles/${articleId}/comments`);
 };
 
-export const patchArticleVotes = (article_id, direction) => {
-  return axios.patch(`${baseUrl}/articles/${article_id}`, {
+export const patchArticleVotes = (articleId, direction) => {
+  return axios.patch(`${baseUrl}/articles/${articleId}`, {
+    inc_votes: direction
+  });
+};
+
+export const patchCommentVotes = (commentId, direction) => {
+  return axios.patch(`${baseUrl}/comments/${commentId}`, {
     inc_votes: direction
   });
 };
