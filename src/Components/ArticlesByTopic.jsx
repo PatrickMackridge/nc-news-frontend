@@ -3,16 +3,29 @@ import ArticleCard from "./ArticleCard";
 import { getArticles, getTopics } from "../api";
 import TopicDesc from "./TopicDesc";
 import Nav from "./Nav";
+import ErrorPage from "./ErrorPage";
 
 class ArticlesByTopic extends Component {
-  state = { articles: [], topics: [], sort_by: "created_at", order: "desc" };
+  state = {
+    articles: [],
+    topics: [],
+    sort_by: "created_at",
+    order: "desc",
+    isLoading: true,
+    errObj: null
+  };
 
   fetchArticles = () => {
     const { topic } = this.props;
     const { sort_by, order } = this.state;
-    getArticles({ sort_by, order }, topic).then(res => {
-      this.setState({ articles: res.data.articles });
-    });
+    getArticles({ sort_by, order }, topic)
+      .then(res => {
+        this.setState({ articles: res.data.articles, isLoading: false });
+      })
+      .catch(error => {
+        const errObj = error.response.data;
+        this.setState({ errObj });
+      });
   };
 
   fetchTopics = () => {
@@ -46,7 +59,13 @@ class ArticlesByTopic extends Component {
   }
 
   render() {
-    const { articles } = this.state;
+    const { articles, errObj, isLoading } = this.state;
+    if (errObj !== null) {
+      return <ErrorPage status={errObj.status} msg={errObj.msg} />;
+    }
+    if (isLoading === true) {
+      return <div className="loading-msg">Loading...</div>;
+    }
     return (
       <>
         <ul className="article-list">

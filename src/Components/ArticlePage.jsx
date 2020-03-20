@@ -5,19 +5,26 @@ import * as moment from "moment";
 import CommentList from "./CommentList";
 import LogInForm from "./LogInForm";
 import PostCommentForm from "./PostCommentForm";
+import ErrorPage from "./ErrorPage";
 
 class ArticlePage extends Component {
   state = {
     article: {},
     isLoading: true,
     commentsShowing: false,
-    newComment: null
+    newComment: null,
+    errObj: null
   };
 
   fetchArticle = () => {
-    getArticle(this.props.article_id).then(res => {
-      this.setState({ article: res.data.article, isLoading: false });
-    });
+    getArticle(this.props.article_id)
+      .then(res => {
+        this.setState({ article: res.data.article, isLoading: false });
+      })
+      .catch(err => {
+        const errObj = err.response.data;
+        this.setState({ errObj });
+      });
   };
 
   toggleComments = event => {
@@ -54,9 +61,18 @@ class ArticlePage extends Component {
   }
 
   render() {
-    const { article, isLoading, commentsShowing, newComment } = this.state;
+    const {
+      article,
+      isLoading,
+      commentsShowing,
+      newComment,
+      errObj
+    } = this.state;
+    if (errObj !== null) {
+      return <ErrorPage status={errObj.status} msg={errObj.msg} />;
+    }
     if (isLoading === true) {
-      return <div>Loading...</div>;
+      return <div className="loading-msg">Loading...</div>;
     }
     return (
       <>

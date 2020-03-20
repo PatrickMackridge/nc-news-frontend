@@ -4,6 +4,7 @@ import AllArticles from "./Components/AllArticles";
 import { Router, Link } from "@reach/router";
 import ArticlesByTopic from "./Components/ArticlesByTopic";
 import ArticlePage from "./Components/ArticlePage";
+import ErrorPage from "./Components/ErrorPage";
 
 class App extends React.Component {
   state = { loggedInUser: null };
@@ -31,7 +32,7 @@ class App extends React.Component {
             logOut={this.logOutUser}
           />
           <ArticlesByTopic
-            path="/:topic"
+            path="/topics/:topic"
             user={loggedInUser}
             logIn={this.logInUser}
             logOut={this.logOutUser}
@@ -42,6 +43,7 @@ class App extends React.Component {
             logIn={this.logInUser}
             logOut={this.logOutUser}
           />
+          <ErrorPage path="/*" />
         </Router>
       </div>
     );

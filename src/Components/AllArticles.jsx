@@ -9,13 +9,14 @@ class AllArticles extends Component {
     articles: [],
     topics: [],
     sort_by: "created_at",
-    order: "desc"
+    order: "desc",
+    isLoading: true
   };
 
   fetchArticles = () => {
     const { sort_by, order } = this.state;
     getArticles({ sort_by, order }).then(res => {
-      this.setState({ articles: res.data.articles });
+      this.setState({ articles: res.data.articles, isLoading: false });
     });
   };
 
@@ -47,7 +48,10 @@ class AllArticles extends Component {
   }
 
   render() {
-    const { articles } = this.state;
+    const { articles, isLoading } = this.state;
+    if (isLoading === true) {
+      return <div className="loading-msg">Loading...</div>;
+    }
     return (
       <>
         <ul className="article-list">

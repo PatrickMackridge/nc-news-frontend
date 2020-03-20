@@ -5,7 +5,7 @@ import * as moment from "moment";
 const ArticleCard = ({ article }) => {
   return (
     <div className="article-card">
-      <Link to={`/${article.topic}`}>
+      <Link to={`/topics/${article.topic}`}>
         <div id="card-topic">
           {article.topic.slice(0, 1).toUpperCase() + article.topic.slice(1)}
         </div>
