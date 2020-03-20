@@ -20,13 +20,13 @@ class CommentList extends Component {
 
   changeCommentVote = (commentId, direction) => {
     patchCommentVotes(commentId, direction).then(res => {
-      const updatedComment = res.data.comment;
+      const resComment = res.data.comment;
       this.setState(currentState => {
-        const commentList = [...currentState.comments];
-        // better way below ? backend katas?
-        commentList.forEach((comment, i) => {
+        const commentList = currentState.comments.map(comment => {
           if (comment.comment_id === commentId) {
-            commentList.splice(i, 1, updatedComment);
+            return { ...comment, votes: resComment.votes };
+          } else {
+            return { ...comment };
           }
         });
         return { comments: commentList };

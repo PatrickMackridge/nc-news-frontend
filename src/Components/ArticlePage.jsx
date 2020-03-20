@@ -34,7 +34,13 @@ class ArticlePage extends Component {
   };
 
   setNewComment = comment => {
-    this.setState({ newComment: comment });
+    this.setState(currentState => {
+      const newArticle = { ...currentState.article };
+      let newCommentCount = parseInt(newArticle.comment_count, 10);
+      newCommentCount += 1;
+      newArticle.comment_count = newCommentCount.toString();
+      return { newComment: comment, article: newArticle };
+    });
   };
 
   componentDidMount() {
