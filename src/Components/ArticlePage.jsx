@@ -94,7 +94,7 @@ class ArticlePage extends Component {
           />
           <p>
             Topic:{" "}
-            <Link to={`/${article.topic}`}>
+            <Link to={`/topics/${article.topic}`}>
               {article.topic.slice(0, 1).toUpperCase() + article.topic.slice(1)}
             </Link>
           </p>
