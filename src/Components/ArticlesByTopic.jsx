@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import ArticleCard from "./ArticleCard";
-import { getArticles, getTopics } from "../api";
-import TopicDesc from "./TopicDesc";
+import { getArticles } from "../api";
+import Description from "./Description";
 import Nav from "./Nav";
 import ErrorPage from "./ErrorPage";
 
 class ArticlesByTopic extends Component {
   state = {
     articles: [],
-    topics: [],
     sort_by: "created_at",
     order: "desc",
     isLoading: true,
-    errObj: null
+    errObj: null,
+    topicDesc: ""
   };
 
   fetchArticles = () => {
@@ -28,9 +28,11 @@ class ArticlesByTopic extends Component {
       });
   };
 
-  fetchTopics = () => {
-    getTopics().then(res => {
-      this.setState({ topics: res.data.topics });
+  getTopicDescription = topics => {
+    topics.forEach(topic => {
+      if (topic.slug === this.props.topic) {
+        this.setState({ topicDesc: topic.description });
+      }
     });
   };
 
@@ -45,7 +47,6 @@ class ArticlesByTopic extends Component {
 
   componentDidMount() {
     this.fetchArticles();
-    this.fetchTopics();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -77,16 +78,17 @@ class ArticlesByTopic extends Component {
             );
           })}
         </ul>
-        <TopicDesc
+        <Description
           chosenTopic={this.props.topic}
-          topicList={this.state.topics}
+          topicDesc={this.state.topicDesc}
         />
         <Nav
-          topics={this.state.topics}
           sortArticles={this.sortArticles}
           user={this.props.user}
           logIn={this.props.logIn}
           logOut={this.props.logOut}
+          getTopicDescription={this.getTopicDescription}
+          topic={this.props.topic}
         />
       </>
     );

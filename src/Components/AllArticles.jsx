@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import ArticleCard from "./ArticleCard";
-import { getArticles, getTopics } from "../api";
+import { getArticles } from "../api";
 import Nav from "./Nav";
-import SiteDesc from "./SiteDesc";
+import Description from "./Description";
 
 class AllArticles extends Component {
   state = {
     articles: [],
-    topics: [],
     sort_by: "created_at",
     order: "desc",
     isLoading: true
@@ -17,12 +16,6 @@ class AllArticles extends Component {
     const { sort_by, order } = this.state;
     getArticles({ sort_by, order }).then(res => {
       this.setState({ articles: res.data.articles, isLoading: false });
-    });
-  };
-
-  fetchTopics = () => {
-    getTopics().then(res => {
-      this.setState({ topics: res.data.topics });
     });
   };
 
@@ -37,7 +30,6 @@ class AllArticles extends Component {
 
   componentDidMount() {
     this.fetchArticles();
-    this.fetchTopics();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -63,9 +55,8 @@ class AllArticles extends Component {
             );
           })}
         </ul>
-        <SiteDesc />
+        <Description />
         <Nav
-          topics={this.state.topics}
           sortArticles={this.sortArticles}
           user={this.props.user}
           logIn={this.props.logIn}

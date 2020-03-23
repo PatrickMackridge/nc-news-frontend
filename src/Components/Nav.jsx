@@ -8,7 +8,10 @@ const Nav = props => {
     <nav className="nav-area">
       <SortArticleList sortArticles={props.sortArticles} />
       <LogInForm user={props.user} logIn={props.logIn} logOut={props.logOut} />
-      <TopicList topics={props.topics} />
+      <TopicList
+        getTopicDescription={props.getTopicDescription}
+        topic={props.topic}
+      />
     </nav>
   );
 };
