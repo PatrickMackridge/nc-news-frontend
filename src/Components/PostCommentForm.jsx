@@ -12,7 +12,7 @@ class PostCommentForm extends Component {
     if (this.state.comment === "") {
       return;
     } else {
-      this.props.setNewComment(this.state.comment);
+      this.props.addNewComment(this.state.comment);
       this.setState({ comment: "" });
     }
   };

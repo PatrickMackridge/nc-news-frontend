@@ -186,7 +186,7 @@
   background-color: white;
   overflow: auto;
   font-size: 85%;
-  padding-bottom: 1%;
+  padding: 1%;
 }
 
 .article-details .login {

@@ -1,62 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import CommentCard from "./CommentCard";
-import {
-  getComments,
-  patchCommentVotes,
-  deleteComment,
-  postComment
-} from "../api";
+import ErrorPage from "./ErrorPage";
 
-class CommentList extends Component {
-  state = {
-    comments: []
-  };
-
-  fetchComments = () => {
-    getComments(this.props.article_id).then(res => {
-      this.setState({ comments: res.data.comments });
-    });
-  };
-
-  changeCommentVote = (commentId, direction) => {
-    patchCommentVotes(commentId, direction).then(res => {
-      const resComment = res.data.comment;
-      this.setState(currentState => {
-        const commentList = currentState.comments.map(comment => {
-          if (comment.comment_id === commentId) {
-            return { ...comment, votes: resComment.votes };
-          } else {
-            return { ...comment };
-          }
-        });
-        return { comments: commentList };
-      });
-    });
-  };
-
-  removeComment = commentId => {
-    deleteComment(commentId).then(() => {
-      this.fetchComments();
-    });
-  };
-
-  componentDidUpdate(prevProps, prevState) {
-    const { newComment, article_id, user } = this.props;
-    if (prevProps.newComment !== newComment) {
-      postComment(article_id, user, newComment).then(res => {
-        this.setState(currentState => {
-          return { comments: [res.data.comment, ...currentState.comments] };
-        });
-      });
-    }
-  }
-
-  componentDidMount() {
-    this.fetchComments();
-  }
-
-  render() {
-    const { comments } = this.state;
+const CommentList = props => {
+  const { comments, changeCommentVote, user, removeComment, errObj } = props;
+  if (errObj !== null) {
+    return <ErrorPage errObj={errObj} />;
+  } else {
     return (
       <ul className="comments-list">
         {comments.map(comment => {
@@ -64,9 +14,9 @@ class CommentList extends Component {
             <li key={comment.comment_id}>
               <CommentCard
                 comment={comment}
-                changeCommentVote={this.changeCommentVote}
-                user={this.props.user}
-                removeComment={this.removeComment}
+                changeCommentVote={changeCommentVote}
+                user={user}
+                removeComment={removeComment}
               />
             </li>
           );
@@ -74,6 +24,6 @@ class CommentList extends Component {
       </ul>
     );
   }
-}
+};
 
 export default CommentList;

@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { getArticle, patchArticleVotes } from "../api";
+import {
+  getArticle,
+  patchArticleVotes,
+  getComments,
+  postComment,
+  patchCommentVotes,
+  deleteComment
+} from "../api";
 import { Link } from "@reach/router";
 import * as moment from "moment";
 import CommentList from "./CommentList";
@@ -12,8 +19,8 @@ class ArticlePage extends Component {
     article: {},
     isLoading: true,
     commentsShowing: false,
-    newComment: null,
-    errObj: null
+    errObj: null,
+    comments: []
   };
 
   fetchArticle = () => {
@@ -27,25 +34,69 @@ class ArticlePage extends Component {
       });
   };
 
-  toggleComments = event => {
-    this.setState(currentState => {
-      return { commentsShowing: !currentState.commentsShowing };
+  fetchComments = () => {
+    getComments(this.state.article.article_id).then(res => {
+      this.setState(currentState => {
+        return {
+          commentsShowing: !currentState.commentsShowing,
+          comments: res.data.comments
+        };
+      });
     });
   };
 
-  changeVote = (event, direction) => {
+  toggleComments = event => {
+    if (this.state.comments.length === 0) {
+      this.fetchComments();
+    } else {
+      this.setState(currentState => {
+        return { commentsShowing: !currentState.commentsShowing };
+      });
+    }
+  };
+
+  changeArticleVote = (event, direction) => {
     patchArticleVotes(this.state.article.article_id, direction).then(res => {
       this.setState({ article: res.data.article });
     });
   };
 
-  setNewComment = comment => {
+  addNewComment = comment => {
+    const { article } = this.state;
+    postComment(article.article_id, this.props.user, comment).then(res => {
+      this.setState(currentState => {
+        const newComments = [res.data.comment, ...currentState.comments];
+        return { comments: newComments };
+      });
+    });
+  };
+
+  changeCommentVote = (commentId, direction) => {
+    patchCommentVotes(commentId, direction).then(res => {
+      const resComment = res.data.comment;
+      this.setState(currentState => {
+        const commentList = currentState.comments.map(comment => {
+          if (comment.comment_id === commentId) {
+            return { ...comment, votes: resComment.votes };
+          } else {
+            return { ...comment };
+          }
+        });
+        return { comments: commentList };
+      });
+    });
+  };
+
+  removeComment = commentId => {
+    deleteComment(commentId).catch(err => {
+      const errObj = err.response.data;
+      this.setState({ errObj });
+    });
     this.setState(currentState => {
-      const newArticle = { ...currentState.article };
-      let newCommentCount = parseInt(newArticle.comment_count, 10);
-      newCommentCount += 1;
-      newArticle.comment_count = newCommentCount.toString();
-      return { newComment: comment, article: newArticle };
+      const newComments = currentState.comments.filter(comment => {
+        return comment.comment_id !== commentId;
+      });
+      return { comments: newComments };
     });
   };
 
@@ -64,8 +115,8 @@ class ArticlePage extends Component {
       article,
       isLoading,
       commentsShowing,
-      newComment,
-      errObj
+      errObj,
+      comments
     } = this.state;
     if (errObj !== null) {
       return <ErrorPage status={errObj.status} msg={errObj.msg} />;
@@ -81,7 +132,7 @@ class ArticlePage extends Component {
           {commentsShowing ? (
             <PostCommentForm
               user={this.props.user}
-              setNewComment={this.setNewComment}
+              addNewComment={this.addNewComment}
             />
           ) : null}
         </div>
@@ -108,14 +159,14 @@ class ArticlePage extends Component {
               Votes: {article.votes}{" "}
               <button
                 onClick={event => {
-                  this.changeVote(event, 1);
+                  this.changeArticleVote(event, 1);
                 }}
               >
                 +1
               </button>{" "}
               <button
                 onClick={event => {
-                  this.changeVote(event, -1);
+                  this.changeArticleVote(event, -1);
                 }}
               >
                 -1
@@ -132,9 +183,12 @@ class ArticlePage extends Component {
         {commentsShowing ? (
           <div className="article-comments">
             <CommentList
+              comments={comments}
               article_id={article.article_id}
               user={this.props.user}
-              newComment={newComment}
+              changeCommentVote={this.changeCommentVote}
+              removeComment={this.removeComment}
+              errObj={errObj}
             />
           </div>
         ) : null}
