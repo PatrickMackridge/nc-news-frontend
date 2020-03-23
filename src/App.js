@@ -1,8 +1,7 @@
 import React from "react";
 import "./App.css";
-import AllArticles from "./Components/AllArticles";
+import Articles from "./Components/Articles";
 import { Router, Link } from "@reach/router";
-import ArticlesByTopic from "./Components/ArticlesByTopic";
 import ArticlePage from "./Components/ArticlePage";
 import ErrorPage from "./Components/ErrorPage";
 
@@ -25,13 +24,13 @@ class App extends React.Component {
           <header>Northcoders News</header>
         </Link>
         <Router className="page">
-          <AllArticles
+          <Articles
             path="/"
             user={loggedInUser}
             logIn={this.logInUser}
             logOut={this.logOutUser}
           />
-          <ArticlesByTopic
+          <Articles
             path="/topics/:topic"
             user={loggedInUser}
             logIn={this.logInUser}

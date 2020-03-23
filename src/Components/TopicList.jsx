@@ -8,7 +8,7 @@ class TopicList extends React.Component {
   fetchTopics = () => {
     getTopics().then(res => {
       const topicArr = res.data.topics;
-      if (this.props.topic) {
+      if (this.props.topic !== undefined) {
         this.props.getTopicDescription(topicArr);
       }
       this.setState({ topics: topicArr });
@@ -17,6 +17,12 @@ class TopicList extends React.Component {
 
   componentDidMount() {
     this.fetchTopics();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.topic !== this.props.topic) {
+      this.props.getTopicDescription(this.state.topics);
+    }
   }
 
   render() {
