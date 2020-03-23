@@ -50,12 +50,17 @@
   margin: 1% 2%;
   background-color: white;
   overflow-y: auto;
+  padding: 0;
+}
+
+.description h3 {
+  margin: 0;
 }
 
 .nav-area {
   grid-area: nav;
   display: grid;
-  grid-template-rows: 20% 25% 55%;
+  grid-template-rows: 25% 35% 40%;
   box-shadow: 1px 1px 5px;
   border-radius: 10px;
   margin: 1% 2%;
@@ -75,9 +80,9 @@
   display: grid;
   grid-template: 25% 1fr 25% / 20% 2fr 20%;
   grid-template-areas:
-    "card-topic    card-title card-author"
-    ".             card-title card-date"
-    "card-comments card-title card-votes";
+    "card-author  card-title card-topic"
+    "card-comments   card-title card-date"
+    "card-votes card-title card-date";
   background-color: white;
   min-height: 100px;
   margin: 2%;
@@ -94,7 +99,6 @@
 }
 
 #card-author {
-  padding: 1%;
   font-size: 0.8em;
   grid-area: card-author;
 }
@@ -112,7 +116,9 @@
 }
 
 #card-comments {
-  padding: 1% 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.8em;
   grid-area: card-comments;
 }
@@ -127,7 +133,7 @@
   display: flex;
   align-items: center;
   padding: 1%;
-  font-size: 0.7em;
+  font-size: 0.8em;
   grid-area: card-date;
 }
 
@@ -171,9 +177,9 @@
 }
 
 .article-details {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template: 1fr / 1fr 1fr;
+  grid-template-areas: "login details";
   box-shadow: 1px 1px 5px;
   border-radius: 10px;
   margin: 1% 2% 0;
@@ -184,11 +190,25 @@
 }
 
 .article-details .login {
+  grid-area: login;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 0;
+  /* width: 50%; */
+}
+
+.details {
+  grid-area: details;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .article-details .login p {
-  padding: 0;
+  margin: 0 auto;
 }
 
 .article-details button {
@@ -201,7 +221,8 @@
 }
 
 .article-details p {
-  margin: 2%;
+  /* width: 50%; */
+  margin: 1% 0;
 }
 
 .comment-form {
@@ -357,8 +378,12 @@
     grid-row: span 2;
   }
 
-  .article-details {
-    display: block;
+  .article-details p {
+    margin: 5% auto;
+  }
+
+  .article-details .login button {
+    margin: 5%;
   }
 
   .loading-msg {

@@ -35,7 +35,6 @@ class ArticlePage extends Component {
 
   changeVote = (event, direction) => {
     patchArticleVotes(this.state.article.article_id, direction).then(res => {
-      // console.log(res.data.article);
       this.setState({ article: res.data.article });
     });
   };
@@ -92,40 +91,43 @@ class ArticlePage extends Component {
             logIn={this.props.logIn}
             logOut={this.props.logOut}
           />
-          <p>
-            Topic:{" "}
-            <Link to={`/topics/${article.topic}`}>
-              {article.topic.slice(0, 1).toUpperCase() + article.topic.slice(1)}
-            </Link>
-          </p>
-          <p>Posted By: {article.author}</p>
-          <p>
-            Posted:{" "}
-            {moment(article.created_at).format("Do MMM YYYY, h:mm:ss a")}
-          </p>
-          <p>
-            Votes: {article.votes}{" "}
-            <button
-              onClick={event => {
-                this.changeVote(event, 1);
-              }}
-            >
-              +1
-            </button>{" "}
-            <button
-              onClick={event => {
-                this.changeVote(event, -1);
-              }}
-            >
-              -1
-            </button>
-          </p>
-          <p>
-            {article.comment_count} comments:{" "}
-            <button onClick={this.toggleComments}>
-              {commentsShowing ? "Hide" : "Show"}
-            </button>
-          </p>
+          <div className="details">
+            <p>
+              Topic:{" "}
+              <Link to={`/topics/${article.topic}`}>
+                {article.topic.slice(0, 1).toUpperCase() +
+                  article.topic.slice(1)}
+              </Link>
+            </p>
+            <p>Posted By: {article.author}</p>
+            <p>
+              Posted:{" "}
+              {moment(article.created_at).format("Do MMM YYYY, h:mm:ss a")}
+            </p>
+            <p>
+              Votes: {article.votes}{" "}
+              <button
+                onClick={event => {
+                  this.changeVote(event, 1);
+                }}
+              >
+                +1
+              </button>{" "}
+              <button
+                onClick={event => {
+                  this.changeVote(event, -1);
+                }}
+              >
+                -1
+              </button>
+            </p>
+            <p>
+              {article.comment_count} comments:{" "}
+              <button onClick={this.toggleComments}>
+                {commentsShowing ? "Hide" : "Show"}
+              </button>
+            </p>
+          </div>
         </div>
         {commentsShowing ? (
           <div className="article-comments">

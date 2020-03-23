@@ -44,7 +44,6 @@ class CommentList extends Component {
     const { newComment, article_id, user } = this.props;
     if (prevProps.newComment !== newComment) {
       postComment(article_id, user, newComment).then(res => {
-        console.log(res.data);
         this.setState(currentState => {
           return { comments: [res.data.comment, ...currentState.comments] };
         });
