@@ -8,7 +8,7 @@ const CommentCard = props => {
         {props.comment.author}:{" "}
         {moment(props.comment.created_at).format("Do MMM YYYY, h:mm:ss a")}
       </p>
-      <p>{props.comment.body}</p>
+      <p id="comment-body">{props.comment.body}</p>
       <p>
         Votes: {props.comment.votes}{" "}
         <button
