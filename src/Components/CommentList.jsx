@@ -3,9 +3,18 @@ import CommentCard from "./CommentCard";
 import ErrorPage from "./ErrorPage";
 
 const CommentList = props => {
-  const { comments, changeCommentVote, user, removeComment, errObj } = props;
+  const {
+    comments,
+    changeCommentVote,
+    user,
+    removeComment,
+    errObj,
+    commentsLoading
+  } = props;
   if (errObj !== null) {
     return <ErrorPage errObj={errObj} />;
+  } else if (commentsLoading === true) {
+    return <p>Loading...</p>;
   } else {
     return (
       <ul className="comments-list">

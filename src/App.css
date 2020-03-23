@@ -185,7 +185,7 @@
   margin: 1% 2% 0;
   background-color: white;
   overflow: auto;
-  font-size: 85%;
+  font-size: 90%;
   padding: 1%;
 }
 
@@ -198,14 +198,14 @@
   padding: 0;
 }
 
-.article-details .details {
+.article-details .article-info {
   grid-area: details;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.article-details .details p {
+.article-details .article-info p {
   margin: 2% 0;
 }
 
@@ -389,8 +389,8 @@
     grid-row: span 2;
   }
 
-  .article-details .details p {
-    margin: 5% auto;
+  .article-details .article-info p {
+    margin: 4% auto;
   }
 
   .article-details .login button {

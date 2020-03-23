@@ -7,12 +7,11 @@ import {
   patchCommentVotes,
   deleteComment
 } from "../api";
-import { Link } from "@reach/router";
-import * as moment from "moment";
 import CommentList from "./CommentList";
 import LogInForm from "./LogInForm";
 import PostCommentForm from "./PostCommentForm";
 import ErrorPage from "./ErrorPage";
+import ArticleInfo from "./ArticleInfo";
 
 class ArticlePage extends Component {
   state = {
@@ -20,7 +19,8 @@ class ArticlePage extends Component {
     isLoading: true,
     commentsShowing: false,
     errObj: null,
-    comments: []
+    comments: [],
+    commentsLoading: true
   };
 
   fetchArticle = () => {
@@ -39,7 +39,8 @@ class ArticlePage extends Component {
       this.setState(currentState => {
         return {
           commentsShowing: !currentState.commentsShowing,
-          comments: res.data.comments
+          comments: res.data.comments,
+          commentsLoading: false
         };
       });
     });
@@ -63,10 +64,11 @@ class ArticlePage extends Component {
 
   addNewComment = comment => {
     const { article } = this.state;
+    this.setState({ commentsLoading: true });
     postComment(article.article_id, this.props.user, comment).then(res => {
       this.setState(currentState => {
         const newComments = [res.data.comment, ...currentState.comments];
-        return { comments: newComments };
+        return { comments: newComments, commentsLoading: false };
       });
     });
   };
@@ -116,7 +118,8 @@ class ArticlePage extends Component {
       isLoading,
       commentsShowing,
       errObj,
-      comments
+      comments,
+      commentsLoading
     } = this.state;
     if (errObj !== null) {
       return <ErrorPage status={errObj.status} msg={errObj.msg} />;
@@ -142,43 +145,12 @@ class ArticlePage extends Component {
             logIn={this.props.logIn}
             logOut={this.props.logOut}
           />
-          <div className="details">
-            <p>
-              Topic:{" "}
-              <Link to={`/topics/${article.topic}`}>
-                {article.topic.slice(0, 1).toUpperCase() +
-                  article.topic.slice(1)}
-              </Link>
-            </p>
-            <p>Posted By: {article.author}</p>
-            <p>
-              Posted:{" "}
-              {moment(article.created_at).format("Do MMM YYYY, h:mm:ss a")}
-            </p>
-            <p>
-              Votes: {article.votes}{" "}
-              <button
-                onClick={event => {
-                  this.changeArticleVote(event, 1);
-                }}
-              >
-                +1
-              </button>{" "}
-              <button
-                onClick={event => {
-                  this.changeArticleVote(event, -1);
-                }}
-              >
-                -1
-              </button>
-            </p>
-            <p>
-              {article.comment_count} comments:{" "}
-              <button onClick={this.toggleComments}>
-                {commentsShowing ? "Hide" : "Show"}
-              </button>
-            </p>
-          </div>
+          <ArticleInfo
+            article={article}
+            commentsShowing={commentsShowing}
+            toggleComments={this.toggleComments}
+            changeArticleVote={this.changeArticleVote}
+          />
         </div>
         {commentsShowing ? (
           <div className="article-comments">
@@ -189,6 +161,7 @@ class ArticlePage extends Component {
               changeCommentVote={this.changeCommentVote}
               removeComment={this.removeComment}
               errObj={errObj}
+              commentsLoading={commentsLoading}
             />
           </div>
         ) : null}
