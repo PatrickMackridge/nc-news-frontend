@@ -9,9 +9,7 @@ class PostCommentForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    if (this.state.comment === "") {
-      return;
-    } else {
+    if (this.state.comment !== "") {
       this.props.addNewComment(this.state.comment);
       this.setState({ comment: "" });
     }

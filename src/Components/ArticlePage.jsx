@@ -29,8 +29,7 @@ class ArticlePage extends Component {
         this.setState({ article: res.data.article, isLoading: false });
       })
       .catch(err => {
-        const errObj = err.response.data;
-        this.setState({ errObj });
+        this.setState({ errObj: err.response.data });
       });
   };
 
@@ -57,8 +56,13 @@ class ArticlePage extends Component {
   };
 
   changeArticleVote = (event, direction) => {
-    patchArticleVotes(this.state.article.article_id, direction).then(res => {
-      this.setState({ article: res.data.article });
+    patchArticleVotes(this.state.article.article_id, direction).catch(err => {
+      this.setState({ errObj: err.response.data });
+    });
+    this.setState(currentState => {
+      const newArticle = { ...currentState.article };
+      newArticle.votes += direction;
+      return { article: newArticle };
     });
   };
 
@@ -68,24 +72,29 @@ class ArticlePage extends Component {
     postComment(article.article_id, this.props.user, comment).then(res => {
       this.setState(currentState => {
         const newComments = [res.data.comment, ...currentState.comments];
-        return { comments: newComments, commentsLoading: false };
+        const newArticle = { ...currentState.article };
+        newArticle.comment_count = newComments.length;
+        return {
+          article: newArticle,
+          comments: newComments,
+          commentsLoading: false
+        };
       });
     });
   };
 
   changeCommentVote = (commentId, direction) => {
-    patchCommentVotes(commentId, direction).then(res => {
-      const resComment = res.data.comment;
-      this.setState(currentState => {
-        const commentList = currentState.comments.map(comment => {
-          if (comment.comment_id === commentId) {
-            return { ...comment, votes: resComment.votes };
-          } else {
-            return { ...comment };
-          }
-        });
-        return { comments: commentList };
+    patchCommentVotes(commentId, direction).catch(err => {
+      this.setState({ errObj: err.response.data });
+    });
+    this.setState(currentState => {
+      const newComments = [...currentState.comments];
+      newComments.forEach(comment => {
+        if (comment.comment_id === commentId) {
+          comment.votes += direction;
+        }
       });
+      return { comments: newComments };
     });
   };
 
@@ -98,7 +107,9 @@ class ArticlePage extends Component {
       const newComments = currentState.comments.filter(comment => {
         return comment.comment_id !== commentId;
       });
-      return { comments: newComments };
+      const newArticle = { ...currentState.article };
+      newArticle.comment_count = newComments.length;
+      return { article: newArticle, comments: newComments };
     });
   };
 
