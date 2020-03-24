@@ -24,24 +24,24 @@ const ArticleInfo = props => {
       </p>
       <p>
         Votes: {article.votes}{" "}
-        {currentVote === 1 ? null : (
-          <button
-            onClick={event => {
-              changeArticleVote(event, 1);
-            }}
-          >
-            +1
-          </button>
-        )}{" "}
-        {currentVote === -1 ? null : (
-          <button
-            onClick={event => {
-              changeArticleVote(event, -1);
-            }}
-          >
-            -1
-          </button>
-        )}
+        <button
+          className="upvote-button"
+          id={currentVote === 1 ? "transparent-button" : null}
+          onClick={event => {
+            changeArticleVote(event, 1);
+          }}
+        >
+          +1
+        </button>{" "}
+        <button
+          className="downvote-button"
+          id={currentVote === -1 ? "transparent-button" : null}
+          onClick={event => {
+            changeArticleVote(event, -1);
+          }}
+        >
+          -1
+        </button>
       </p>
       <p>
         {article.comment_count} comments:{" "}
