@@ -20,7 +20,8 @@ class ArticlePage extends Component {
     commentsShowing: false,
     errObj: null,
     comments: [],
-    commentsLoading: true
+    commentsLoading: true,
+    currentVote: 0
   };
 
   fetchArticle = () => {
@@ -56,14 +57,19 @@ class ArticlePage extends Component {
   };
 
   changeArticleVote = (event, direction) => {
-    patchArticleVotes(this.state.article.article_id, direction).catch(err => {
-      this.setState({ errObj: err.response.data });
-    });
-    this.setState(currentState => {
-      const newArticle = { ...currentState.article };
-      newArticle.votes += direction;
-      return { article: newArticle };
-    });
+    if (this.state.currentVote !== direction) {
+      patchArticleVotes(this.state.article.article_id, direction).catch(err => {
+        this.setState({ errObj: err.response.data });
+      });
+      this.setState(currentState => {
+        const newArticle = { ...currentState.article };
+        newArticle.votes += direction;
+        return {
+          article: newArticle,
+          currentVote: currentState.currentVote + direction
+        };
+      });
+    }
   };
 
   addNewComment = comment => {
@@ -83,19 +89,26 @@ class ArticlePage extends Component {
     });
   };
 
-  changeCommentVote = (commentId, direction) => {
-    patchCommentVotes(commentId, direction).catch(err => {
-      this.setState({ errObj: err.response.data });
-    });
-    this.setState(currentState => {
-      const newComments = [...currentState.comments];
-      newComments.forEach(comment => {
-        if (comment.comment_id === commentId) {
-          comment.votes += direction;
-        }
+  changeCommentVote = (chosenComment, direction) => {
+    if (chosenComment.currentVote !== direction) {
+      patchCommentVotes(chosenComment.comment_id, direction).catch(err => {
+        this.setState({ errObj: err.response.data });
       });
-      return { comments: newComments };
-    });
+      this.setState(currentState => {
+        const newComments = currentState.comments.map(comment => {
+          if (comment.comment_id === chosenComment.comment_id) {
+            return {
+              ...comment,
+              votes: (comment.votes += direction),
+              currentVote: direction + (comment.currentVote || 0)
+            };
+          } else {
+            return { ...comment };
+          }
+        });
+        return { comments: newComments };
+      });
+    }
   };
 
   removeComment = commentId => {
@@ -130,7 +143,8 @@ class ArticlePage extends Component {
       commentsShowing,
       errObj,
       comments,
-      commentsLoading
+      commentsLoading,
+      currentVote
     } = this.state;
     if (errObj !== null) {
       return <ErrorPage status={errObj.status} msg={errObj.msg} />;
@@ -161,6 +175,7 @@ class ArticlePage extends Component {
             commentsShowing={commentsShowing}
             toggleComments={this.toggleComments}
             changeArticleVote={this.changeArticleVote}
+            currentVote={currentVote}
           />
         </div>
         {commentsShowing ? (

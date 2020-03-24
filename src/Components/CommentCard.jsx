@@ -11,20 +11,24 @@ const CommentCard = props => {
       <p id="comment-body">{props.comment.body}</p>
       <p>
         Votes: {props.comment.votes}{" "}
-        <button
-          onClick={event => {
-            props.changeCommentVote(props.comment.comment_id, 1);
-          }}
-        >
-          +1
-        </button>{" "}
-        <button
-          onClick={event => {
-            props.changeCommentVote(props.comment.comment_id, -1);
-          }}
-        >
-          -1
-        </button>
+        {props.comment.currentVote === 1 ? null : (
+          <button
+            onClick={event => {
+              props.changeCommentVote(props.comment, 1);
+            }}
+          >
+            +1
+          </button>
+        )}{" "}
+        {props.comment.currentVote === -1 ? null : (
+          <button
+            onClick={event => {
+              props.changeCommentVote(props.comment, -1);
+            }}
+          >
+            -1
+          </button>
+        )}
         {props.comment.author === props.user ? (
           <button
             onClick={() => {
