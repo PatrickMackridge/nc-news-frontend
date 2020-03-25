@@ -19,7 +19,7 @@ const ArticleInfo = props => {
         </Link>
       </p>
       <p>Posted By: {article.author}</p>
-      <p>
+      <p id="article-info-date">
         Posted: {moment(article.created_at).format("Do MMM YYYY, h:mm:ss a")}
       </p>
       <p>

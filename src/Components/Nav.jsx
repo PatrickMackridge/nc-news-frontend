@@ -6,8 +6,8 @@ import LogInForm from "./LogInForm";
 const Nav = props => {
   return (
     <nav className="nav-area">
-      <SortArticleList sortArticles={props.sortArticles} />
       <LogInForm user={props.user} logIn={props.logIn} logOut={props.logOut} />
+      <SortArticleList sortArticles={props.sortArticles} />
       <TopicList
         getTopicDescription={props.getTopicDescription}
         topic={props.topic}

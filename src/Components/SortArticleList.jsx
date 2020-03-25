@@ -4,7 +4,7 @@ const SortArticleList = props => {
   return (
     <div className="sort-options">
       <label>
-        Sort By:{" "}
+        Sort By: <br />
         <select className="sort" onChange={props.sortArticles}>
           <option value="created_at">Date Created</option>
           <option value="comment_count">Number of Comments</option>
@@ -13,7 +13,7 @@ const SortArticleList = props => {
       </label>
       <label>
         {" "}
-        Order:{" "}
+        Order: <br />
         <select className="order" onChange={props.sortArticles}>
           <option value="desc">Descending</option>
           <option value="asc">Ascending</option>

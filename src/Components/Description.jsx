@@ -6,6 +6,7 @@ const TopicDesc = props => {
       <div className="description">
         <h3>Welcome to NC News!</h3>
         <p>Your one stop shop for all the hot goss!</p>
+        <p>(and articles about food, football and coding...)</p>
       </div>
     );
   } else {
