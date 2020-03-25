@@ -169,6 +169,7 @@
   padding: 2%;
   margin-left: 10%;
   text-align: center;
+  text-decoration: none;
 }
 
 .sort-options {
@@ -181,6 +182,7 @@
   cursor: pointer;
   background-color: #3b7bdc;
   border: 2px solid #232a39;
+  border-radius: 4px;
   color: white;
   font-weight: bold;
 }
@@ -376,7 +378,7 @@ button {
 
   .nav-area {
     display: grid;
-    grid-template-rows: 25% 25% 1fr;
+    grid-template: 25% 25% 1fr / 1fr;
     overflow: hidden;
     margin-bottom: 1%;
   }
@@ -439,10 +441,6 @@ button {
 
   .topic-list {
     flex-direction: column;
-  }
-
-  .sort-options {
-    /* align-items: center; */
   }
 
   .topics h3 {
