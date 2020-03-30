@@ -28,7 +28,7 @@ const CommentCard = props => {
           }}
         >
           -1
-        </button>
+        </button>{" "}
         {props.comment.author === props.user ? (
           <button
             className="delete-button"

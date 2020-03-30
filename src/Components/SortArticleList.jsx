@@ -12,7 +12,6 @@ const SortArticleList = props => {
         </select>
       </label>
       <label>
-        {" "}
         Order: <br />
         <select className="order" onChange={props.sortArticles}>
           <option value="desc">Descending</option>
