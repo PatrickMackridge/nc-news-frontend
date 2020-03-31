@@ -5,7 +5,7 @@
     "header"
     "page";
   text-align: center;
-  background-color: #e5f4e3;
+  background-color: #faffe8;
   color: #232a39;
 }
 
@@ -18,7 +18,7 @@
     "nav"
     "article-list";
   text-align: center;
-  background-color: #e5f4e3;
+  background-color: #faffe8;
 }
 
 .app-header {
@@ -47,7 +47,7 @@
 
 ::-webkit-scrollbar {
   width: 4px;
-  background-color: #e5f4e3;
+  background-color: #faffe8;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -229,7 +229,7 @@
 
 .sort-options select {
   cursor: pointer;
-  background-color: #e5f4e3;
+  background-color: #faffe8;
   border: 1px solid #232a39;
   border-radius: 4px;
   color: #232a39;
@@ -326,7 +326,7 @@ button {
   padding-bottom: 1%;
   border: 1px solid #001d4a;
   overflow: auto;
-  background-color: #e5f4e3;
+  background-color: #faffe8;
   height: fit-content;
 }
 
@@ -354,7 +354,7 @@ button {
 
 .article-comments::-webkit-scrollbar {
   width: 2px;
-  background-color: #e5f4e3;
+  background-color: #faffe8;
 }
 
 .comment-card {
