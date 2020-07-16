@@ -326,7 +326,7 @@ button {
   padding-bottom: 1%;
   border: 1px solid #001d4a;
   overflow: auto;
-  background-color: #faffe8;
+  background-color: rgb(245, 245, 250);
   height: fit-content;
 }
 
@@ -339,6 +339,7 @@ button {
   height: 100%;
   width: 100%;
   outline: none;
+  font-family: inherit;
 }
 
 .article-comments {
